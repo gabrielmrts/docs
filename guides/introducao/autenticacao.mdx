@@ -3,3 +3,25 @@ title: "Autenticação"
 icon: "lock"
 description: "Como enviar requisições para a nossa API"
 ---
+
+<Tip>
+  **Token de API:** é o identificador que concede acesso à API do Togglr. Esse token associa suas chamadas à sua conta e valida suas operações dentro da plataforma. **Atenção:** sem o token de API válido, qualquer requisição será rejeitada automaticamente.
+</Tip>
+
+### <Icon icon="key" />  Gerenciando tokens de API
+
+Gerencie suas chaves de API diretamente em nossa plataforma. Você pode:
+
+- Listar todas as chaves ativas
+- Criar novas chaves
+- Revogar chaves existentes
+
+<Warning>
+  ## **Erro de Autenticação**
+
+  A API retornará o código HTTP `401` quando:
+
+  - A chave de API não for fornecida no header
+  - A chave for inválida
+  - A chave tiver sido revogada
+</Warning>
