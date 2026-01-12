@@ -31,8 +31,7 @@
             "group": "Introdução",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "guides/introducao/autenticacao"
             ]
           },
           {
