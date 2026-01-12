@@ -1,0 +1,44 @@
+---
+title: 'Public endpoints'
+description: 'Health check and documentation endpoints'
+---
+
+## Health check
+
+Check the API health status. This endpoint does not require authentication.
+
+<RequestExample>
+```bash
+curl -X GET https://api.example.com/health
+```
+</RequestExample>
+
+<ResponseExample>
+```text Success (200)
+ok
+```
+</ResponseExample>
+
+Use this endpoint to verify that the API is running and accessible.
+
+## Swagger documentation
+
+Interactive API documentation is available via Swagger UI.
+
+### Access Swagger UI
+
+Navigate to `/swagger/*` in your browser to access the interactive API documentation.
+
+```
+https://api.example.com/swagger/
+```
+
+The Swagger UI provides:
+- Interactive API exploration
+- Request/response examples
+- Schema definitions
+- Try-it-out functionality
+
+## CORS support
+
+All endpoints support Cross-Origin Resource Sharing (CORS) and can be accessed from any origin.
