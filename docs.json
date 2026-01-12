@@ -83,7 +83,7 @@
       ]
     }
   },
-  "logo": "/images/icon.png",
+  "logo": "/images/unnamed-removebg-preview.png",
   "navbar": {
     "links": [
       {
@@ -115,5 +115,9 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
+  },
+  "appearance": {
+    "default": "dark",
+    "strict": true
   }
 }
