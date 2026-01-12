@@ -1,0 +1,103 @@
+---
+title: 'Authentication'
+description: 'Learn how to authenticate with the API using JWT tokens'
+---
+
+## Overview
+
+The API uses JWT (JSON Web Token) based authentication. To access protected endpoints, you must first obtain a token by logging in, then include it in subsequent requests.
+
+## Getting a token
+
+### Login
+
+<ParamField path="email" type="string" required>
+  User email address
+</ParamField>
+
+<ParamField path="password" type="string" required>
+  User password
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.example.com/sessions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test@example.com",
+    "password": "password123"
+  }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success (200)
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+```json Error (400)
+{
+  "error": "email and password are required"
+}
+```
+
+```json Error (401)
+{
+  "error": "invalid email or password"
+}
+```
+</ResponseExample>
+
+## Using the token
+
+Include the JWT token in the `Authorization` header for all authenticated requests:
+
+```bash
+Authorization: Bearer <your-jwt-token>
+```
+
+### Example authenticated request
+
+```bash
+curl -X GET https://api.example.com/feature-flags \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+## Get current user
+
+Retrieve information about the currently authenticated user.
+
+<RequestExample>
+```bash
+curl -X GET https://api.example.com/sessions/me \
+  -H "Authorization: Bearer <your-jwt-token>"
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success (200)
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Test User",
+  "email": "test@example.com"
+}
+```
+
+```json Error (401)
+{
+  "error": "unauthorized"
+}
+```
+</ResponseExample>
+
+## Error responses
+
+All authentication errors return a JSON object with an `error` field:
+
+| Status Code | Description |
+|-------------|-------------|
+| `400` | Invalid request body or missing required fields |
+| `401` | Missing or invalid authentication token |
+| `500` | Internal server error |

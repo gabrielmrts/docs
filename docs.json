@@ -51,9 +51,18 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Getting started",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/authentication"
+            ]
+          },
+          {
+            "group": "Core endpoints",
+            "pages": [
+              "api-reference/public-endpoints",
+              "api-reference/users",
+              "api-reference/feature-flags"
             ]
           },
           {

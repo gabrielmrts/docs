@@ -1,0 +1,257 @@
+---
+title: 'Feature flags'
+description: 'Manage feature flags for your application'
+---
+
+<Note>
+  All feature flag endpoints require authentication. Include your JWT token in the `Authorization` header.
+</Note>
+
+## Create feature flag
+
+Create a new feature flag for your account.
+
+### Request
+
+<ParamField path="name" type="string" required>
+  Flag name (alphanumeric and underscores only)
+</ParamField>
+
+<ParamField path="description" type="string" required>
+  Flag description
+</ParamField>
+
+<ParamField path="enabled" type="boolean" required>
+  Whether the flag is enabled
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.example.com/feature-flags \
+  -H "Authorization: Bearer <your-jwt-token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "my_feature_flag",
+    "description": "Enable new feature X",
+    "enabled": false
+  }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success (201)
+{
+  "name": "my_feature_flag",
+  "description": "Enable new feature X",
+  "enabled": false,
+  "created_at": "2026-01-11T00:00:00Z",
+  "updated_at": "2026-01-11T00:00:00Z"
+}
+```
+
+```json Error (400) - Invalid name
+{
+  "error": "invalid flag name"
+}
+```
+
+```json Error (400) - Empty description
+{
+  "error": "description cannot be empty"
+}
+```
+
+```json Error (401)
+{
+  "error": "unauthorized"
+}
+```
+
+```json Error (409)
+{
+  "error": "flag already exists"
+}
+```
+</ResponseExample>
+
+## List all feature flags
+
+Get all feature flags for your account.
+
+<RequestExample>
+```bash
+curl -X GET https://api.example.com/feature-flags \
+  -H "Authorization: Bearer <your-jwt-token>"
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success (200)
+[
+  {
+    "name": "my_feature_flag",
+    "description": "Enable new feature X",
+    "enabled": false,
+    "created_at": "2026-01-11T00:00:00Z",
+    "updated_at": "2026-01-11T00:00:00Z"
+  }
+]
+```
+
+```json Error (401)
+{
+  "error": "unauthorized"
+}
+```
+</ResponseExample>
+
+## Get feature flag by name
+
+Retrieve a specific feature flag by its name.
+
+### Path parameters
+
+<ParamField path="name" type="string" required>
+  Feature flag name
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X GET https://api.example.com/feature-flags/my_feature_flag \
+  -H "Authorization: Bearer <your-jwt-token>"
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success (200)
+{
+  "name": "my_feature_flag",
+  "description": "Enable new feature X",
+  "enabled": false,
+  "created_at": "2026-01-11T00:00:00Z",
+  "updated_at": "2026-01-11T00:00:00Z"
+}
+```
+
+```json Error (401)
+{
+  "error": "unauthorized"
+}
+```
+
+```json Error (404)
+{
+  "error": "flag not found"
+}
+```
+</ResponseExample>
+
+## Update feature flag
+
+Update an existing feature flag's description or enabled status.
+
+### Path parameters
+
+<ParamField path="name" type="string" required>
+  Feature flag name
+</ParamField>
+
+### Request body
+
+<ParamField path="description" type="string">
+  Updated description (optional)
+</ParamField>
+
+<ParamField path="enabled" type="boolean">
+  Updated enabled status (optional)
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X PUT https://api.example.com/feature-flags/my_feature_flag \
+  -H "Authorization: Bearer <your-jwt-token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "Updated description",
+    "enabled": true
+  }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success (200)
+{
+  "name": "my_feature_flag",
+  "description": "Updated description",
+  "enabled": true,
+  "created_at": "2026-01-11T00:00:00Z",
+  "updated_at": "2026-01-11T02:34:00Z"
+}
+```
+
+```json Error (400)
+{
+  "error": "invalid request body"
+}
+```
+
+```json Error (401)
+{
+  "error": "unauthorized"
+}
+```
+
+```json Error (404)
+{
+  "error": "flag not found"
+}
+```
+</ResponseExample>
+
+## Delete feature flag
+
+Delete a feature flag from your account.
+
+### Path parameters
+
+<ParamField path="name" type="string" required>
+  Feature flag name
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X DELETE https://api.example.com/feature-flags/my_feature_flag \
+  -H "Authorization: Bearer <your-jwt-token>"
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success (204)
+No content
+```
+
+```json Error (400)
+{
+  "error": "invalid flag name"
+}
+```
+
+```json Error (401)
+{
+  "error": "unauthorized"
+}
+```
+
+```json Error (404)
+{
+  "error": "flag not found"
+}
+```
+</ResponseExample>
+
+## Naming rules
+
+Feature flag names must:
+- Contain only alphanumeric characters and underscores
+- Be unique per user account
+- Not be empty
