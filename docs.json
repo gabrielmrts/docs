@@ -83,7 +83,6 @@
       ]
     }
   },
-  "logo": "/images/img.svg",
   "navbar": {
     "links": [
       {
@@ -119,5 +118,6 @@
   "appearance": {
     "default": "dark",
     "strict": true
-  }
+  },
+  "logo": "/images/img.svg"
 }
